@@ -1,44 +1,23 @@
-//
-// Player.java
-// author: Andrew Downing
-//
-
 import java.util.*;
 import java.awt.*;
 import java.io.*;
 
 /** represents a single player of the game German Whist and provides a wrapper around the player's hand deck */
 public class Player implements Serializable {
-  // per-game variables
   private static int activePlayer; /**< id of player who is currently playing a card */
   private int id; /**< determines playing order during a game */
   private Deck hand; /**< deck containing this player's cards */
   private int score; /**< number of tricks this player won */
-
-  // persistent variables
   private String name; /**< name of this player */
-  private int gamesWon; /**< number of games this player won (doesn't include ties) */
-  private int gamesPlayed; /**< total number of games this player finished playing
-                                (includes ties but doesn't include incomplete games) */
 
   /** constructor for German Whist player */
-  public Player(String newName, int newGamesWon, int newGamesPlayed) {
-    if (!Application.isValidName(newName)) {
+  public Player(String newName, int newId) {
+    if (!PlayerData.isValidName(newName)) {
       throw new IllegalArgumentException("Player name is not a valid name");
     }
-    if (newGamesWon < 0 || newGamesPlayed < 0) {
-      throw new IllegalArgumentException("Games won and played must both be nonnegative");
-    }
     name = newName;
-    gamesWon = newGamesWon;
-    gamesPlayed = newGamesPlayed;
-  }
-
-  /** prepare player for a new German Whist game */
-  public void newGame(int newId, Deck talon) {
     id = newId;
     hand = new Deck();
-    dealFrom(talon, GamePanel.NDealtCards); // deal cards to player
     score = 0;
   }
 
@@ -58,6 +37,18 @@ public class Player implements Serializable {
   /** play specified card for a trick,
       returns whether the card was played (must play same suit as 1st card in trick if possible) */
   public boolean playTrick(int cardIndex, Deck trick) {
+    if (!isValidPlay(cardIndex, trick)) {
+      return false;
+    }
+    // card is valid, play it for trick
+    hand.setAllFaceUp(true);
+    hand.moveCardTo(trick, cardIndex);
+    activePlayer++;
+    return true;
+  }
+
+  /** returns whether specified card is valid to play for a trick */
+  public boolean isValidPlay(int cardIndex, Deck trick) {
     // throw exception if card index out of bounds
     if (cardIndex < 0 || cardIndex >= hand.size()) {
       throw new IndexOutOfBoundsException("Card index out of bounds");
@@ -72,16 +63,13 @@ public class Player implements Serializable {
         }
       }
     }
-    // card is valid, play it for trick
-    hand.moveCardTo(trick, cardIndex);
-    activePlayer++;
     return true;
   }
 
   /** draw the cards and a label of this player's hand */
   public void drawHand(Component c, Graphics2D g2) {
     Point handPos = getHandPos(c);
-    hand.setAllFaceUp(id == activePlayer); // draw cards face up only if this player is active
+    hand.setAllFaceUp(true);
     hand.draw(c, g2, handPos, getHandSpread(c));
     g2.setColor(Color.black);
     g2.drawString(name + "'s hand", handPos.x - Card.getImgWidth() / 2, handPos.y - Card.getImgHeight() / 2 - GamePanel.TextHeight / 2);
@@ -90,7 +78,7 @@ public class Player implements Serializable {
   /** helper function to position the hand */
   private final Point getHandPos(Component c) {
     return new Point(GamePanel.Padding + Card.getImgWidth() / 2,
-                     c.getHeight() - GamePanel.Padding - Card.getImgHeight() / 2 - id * (GamePanel.Padding + Card.getImgHeight()));
+                     c.getHeight() - GamePanel.Padding - Card.getImgHeight() / 2);
   }
 
   /** helper function to find how much the hand is spread out when drawn */
@@ -104,15 +92,9 @@ public class Player implements Serializable {
     activePlayer = id;
   }
 
-  /** called when this player won a game */
-  public void winGame() {
-    gamesWon++;
-    gamesPlayed++;
-  }
-
-  /** called when this player lost or the game was a tie */
-  public void loseGame() {
-    gamesPlayed++;
+  /** getter for hand deck */
+  public final Deck getHand() {
+    return hand;
   }
 
   /** getter for score (i.e., number of tricks won) */
@@ -123,16 +105,6 @@ public class Player implements Serializable {
   /** getter for player name */
   public final String getName() {
     return name;
-  }
-
-  /** getter for games won */
-  public final int getGamesWon() {
-    return gamesWon;
-  }
-
-  /** getter for games played */
-  public final int getGamesPlayed() {
-    return gamesPlayed;
   }
 
   /** returns index of card in hand at specified position, or -1 if there is no card in hand at specified position */

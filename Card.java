@@ -1,8 +1,3 @@
-//
-// Card.java
-// author: Andrew Downing
-//
-
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -125,6 +120,17 @@ public class Card implements Serializable {
   /** set whether this card is face up */
   public void setFaceUp(boolean newFaceUp) {
     faceUp = newFaceUp;
+  }
+
+  /** returns whether has same rank and suit as specified card */
+  public final boolean equals(Card otherCard) {
+    return rank == otherCard.getRank() && suit == otherCard.getSuit();
+  }
+
+  /** returns rank and first character of suit as String
+      (returns rank simply as number since this is only used for debugging) */
+  public final String getString() {
+    return "" + rank + suit.toString().charAt(0);
   }
 
   /** getter for rank */

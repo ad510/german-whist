@@ -1,8 +1,3 @@
-//
-// Deck.java
-// author: Andrew Downing
-//
-
 import java.util.*;
 import java.awt.*;
 import java.awt.geom.*;
@@ -31,11 +26,10 @@ public class Deck implements Serializable {
   }
 
   /** randomize the order of the cards without changing which cards are in the deck */
-  public void shuffle() {
+  public void shuffle(Random rand) {
     ArrayList<Card> shuffledCards = new ArrayList<Card>();
-    Random r = new Random();
     while (!cards.isEmpty()) {
-      shuffledCards.add(cards.remove(r.nextInt(cards.size())));
+      shuffledCards.add(cards.remove(rand.nextInt(cards.size())));
     }
     cards = shuffledCards;
   }
@@ -128,12 +122,33 @@ public class Deck implements Serializable {
     }
   }
 
+  /** returns String containing rank and suit of all cards in deck */
+  public final String getString() {
+    StringBuilder ret = new StringBuilder();
+    for (int i = 0; i < cards.size(); i++) {
+      ret.append(cards.get(i).getString());
+      ret.append(" ");
+    }
+    return ret.toString();
+  }
+
   /** returns card at the specified position of the deck */
   public final Card getCard(int cardIndex) {
     if (cardIndex < 0 || cardIndex >= cards.size()) {
       throw new IndexOutOfBoundsException("Card index out of bounds");
     }
     return cards.get(cardIndex);
+  }
+
+  /** returns index of card in deck equal to specified card,
+      or -1 if deck doesn't contain such a card */
+  public final int getEqualCard(Card card) {
+    for (int i = 0; i < cards.size(); i++) {
+      if (card.equals(cards.get(i))) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   /** returns card at the top of the deck */

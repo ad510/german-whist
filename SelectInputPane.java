@@ -1,8 +1,3 @@
-//
-// SelectInputPane.java
-// author: Andrew Downing
-//
-
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,11 +5,15 @@ import javax.swing.*;
 
 /** scoll pane (not panel) for user to choose from several buttons to click */
 public class SelectInputPane extends JScrollPane implements ActionListener {
-  private ActionListener action; /**< reference to action to perform when button clicked */
+  private final Color backColor; /**< background color of panel */
+  private final Insets insets; /**< padding around laid out components */
+  private final ActionListener action; /**< reference to action to perform when button clicked */
 
   /** constructor for selection input pane */
-  public SelectInputPane(ActionListener selectAction) {
+  public SelectInputPane(ActionListener selectAction, Color newBackColor, Insets newInsets) {
     action = selectAction; // store reference to selection action
+    backColor = newBackColor;
+    insets = newInsets;
   }
 
   /** re-layout the pane to display specified instruction and choices */
@@ -24,10 +23,10 @@ public class SelectInputPane extends JScrollPane implements ActionListener {
     JPanel innerPanel = new JPanel();
     setViewportView(innerPanel);
     // start setting up layout and constraints
-    innerPanel.setBackground(Application.BackColor);
+    innerPanel.setBackground(backColor);
     innerPanel.setLayout(new GridBagLayout());
     gbc.weightx = 0.5;
-    gbc.insets = Application.StdInsets;
+    gbc.insets = insets;
     gbc.gridx = 0;
     // add new components
     gbc.gridy = 0;

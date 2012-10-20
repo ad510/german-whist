@@ -1,8 +1,3 @@
-//
-// TextInputPanel.java
-// author: Andrew Downing
-//
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -15,16 +10,21 @@ public class TextInputPanel extends JPanel implements ActionListener {
   private ActionListener action; /**< reference to action to perform when button clicked */
 
   /** constructor for text input panel */
-  public TextInputPanel(String instruction, String btnText, ActionListener btnAction) {
+  public TextInputPanel(String instruction, String btnText, boolean passwordInput, ActionListener btnAction, Color backColor, Insets insets) {
     // start setting up layout and contraints
     GridBagConstraints gbc = new GridBagConstraints();
-    setBackground(Application.BackColor);
+    setBackground(backColor);
     setLayout(new GridBagLayout());
     gbc.weightx = 0.5;
-    gbc.insets = Application.StdInsets;
+    gbc.insets = insets;
     gbc.gridx = 0;
     // instantiate components
-    textField = new JTextField(20);
+    if (passwordInput) {
+      textField = new JPasswordField(20);
+    }
+    else {
+      textField = new JTextField(20);
+    }
     button = new JButton(btnText);
     lblActionMsg = new JLabel();
     // add components

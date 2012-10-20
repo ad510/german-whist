@@ -1,4 +1,15 @@
-Extract the card images inside the folder card_img/. Below are the commands I use to compile and run my submission:
+Extract the card images inside the folder card_img/.
 
+To compile my submission, use:
 javac ./*.java
-java Application
+
+To run the server, use:
+java ServerApp
+
+To run a client, use:
+java ClientApp
+(Note that the first time you play, you'll need to make a player account using Player > New Player.)
+
+To run an AI client, use:
+java AIClientApp
+(The AI client is the same as the regular client, except that the AI plays cards for you during the game. Including the GUI here lets you have the same game joining functionality in the AI client as the regular client. The AI client uses Thread.sleep() between moves, so I suggest not switching from the game panel once the game has started.)
