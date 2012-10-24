@@ -1,0 +1,4 @@
+Extract the card images inside the folder card_img/. Below are the commands I use to compile and run my submission:
+
+javac ./*.java
+java Application
