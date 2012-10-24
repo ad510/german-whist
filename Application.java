@@ -7,9 +7,9 @@
 /**
 @mainpage German Whist card game
 
-@section cardimg Note About Card Images
+@section cardimg Compilation/Usage Instructions
 
-Extract Mr. Crowley's card images to the folder card_img/.
+See compile.txt for instructions to compile and run the code.
 
 @section overview Overview
 

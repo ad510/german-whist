@@ -24,7 +24,7 @@ public class Card implements Serializable {
   public static final int MaxRank = Ace;
 
   // constants related to card image paths
-  private static final String ImgPath = "card_img/"; /**< folder where card images are saved */
+  private static final String ImgPath = "cards/"; /**< folder where card images are saved */
   private static final String BackImgPath = ImgPath + "b.gif"; /**< file path of card back image */
 
   // properties of this card
