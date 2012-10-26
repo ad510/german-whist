@@ -1,4 +1,4 @@
-Download the card images from http://www.waste.org/~oxymoron/cards/ and extract the gifs to the folder cards/.
+Download the card images from http://waste.org/~oxymoron/cards and extract the gifs to the folder cards/.
 
 To compile my submission, use:
 javac ./*.java
