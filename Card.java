@@ -58,7 +58,8 @@ public class Card implements Serializable {
     // throw exception if back image file does not exist
     if (!new File(BackImgPath).exists()) {
       throw new FileNotFoundException("Could not find file \"" + BackImgPath + "\".\n"
-                                      + "Make sure the card images were extracted to \"" + ImgPath + "\".");
+                                      + "Make sure you downloaded the card images from http://waste.org/~oxymoron/cards\n"
+                                      + "and extracted the gifs to \"" + ImgPath + "\".");
     }
     // load back image
     backImg = new ImageIcon(BackImgPath);

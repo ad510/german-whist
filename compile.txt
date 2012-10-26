@@ -1,4 +1,4 @@
-Download the card images from http://www.waste.org/~oxymoron/cards/ and extract the gifs to the folder cards/. Below are the commands I use to compile and run my submission:
+Download the card images from http://waste.org/~oxymoron/cards and extract the gifs to the folder cards/. Below are the commands I use to compile and run my submission:
 
 javac ./*.java
 java Application
