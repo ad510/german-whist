@@ -10,8 +10,8 @@ import java.util.*;
 
 /** class implementing a non-GUI server application to coordinate game client windows over a network */
 public class ServerApp {
-  public static int Port = 44247; /**< networking port that server listens on */
-  public static int UpdateInterval = 200; /**< rate to poll for new messages, in milliseconds */
+  public static final int Port = 44247; /**< networking port that server listens on */
+  public static final int UpdateInterval = 200; /**< rate to poll for new messages, in milliseconds */
   private static final String SettingsPath = "save/players.dat"; /**< file path of player data file */
 
   /** server socket used to set up connections with clients */
