@@ -173,6 +173,10 @@ public class GameAIPanel extends GamePanel {
         }
         handWeight.set(i, handWeight.get(i) + thisRank); // value larger ranks
       }
+      else if (handWeight.get(i) > 0 && hand.getCard(i).getSuit() == trump) {
+        // give large weight if we can't follow suit and this is a trump card
+        handWeight.set(i, handWeight.get(i) + 50);
+      }
     }
   }
 
